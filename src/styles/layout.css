@@ -1,0 +1,442 @@
+/* ──────────────────────────────────────────────
+   Layout — scrollytelling structure
+   ────────────────────────────────────────────── */
+
+/* ── Hero / Intro ────────────────────────────── */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__title {
+  margin-bottom: var(--space-md);
+  max-width: 800px;
+}
+
+.hero__subtitle {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 300;
+  color: var(--color-text-muted);
+  max-width: 640px;
+  margin-bottom: var(--space-lg);
+}
+
+.hero__question {
+  font-size: 0.95rem;
+  color: var(--color-text-light);
+  max-width: 540px;
+  line-height: 1.7;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.08;
+}
+
+.hero__scroll-hint {
+  position: absolute;
+  bottom: var(--space-xl);
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(4px); }
+}
+
+/* ── Scrollytelling layout ───────────────────── */
+
+.scrolly {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+}
+
+.scrolly__narrative {
+  width: var(--narrative-width);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.scrolly__chart-area {
+  flex: 1;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  z-index: 1;
+}
+
+.scrolly__chart-container {
+  width: 100%;
+  height: 80vh;
+  max-height: 700px;
+  position: relative;
+}
+
+/* ── Story steps ─────────────────────────────── */
+
+.step {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  padding: var(--space-lg) var(--space-lg) var(--space-lg) var(--space-xl);
+}
+
+.step__card {
+  background: white;
+  border: 1px solid var(--color-border-light);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  max-width: 340px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+  transition: opacity 0.4s ease, transform 0.3s ease;
+}
+
+.step.is-active .step__card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.step:not(.is-active) .step__card {
+  opacity: 0.2;
+  transform: translateY(8px);
+}
+
+.step__title {
+  margin-bottom: var(--space-sm);
+}
+
+.step__text {
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+/* ── Section dividers ────────────────────────── */
+
+.section-divider {
+  text-align: center;
+  padding: var(--space-2xl) var(--space-xl);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.section-divider__number {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-accent-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-sm);
+}
+
+.section-divider__title {
+  margin-bottom: var(--space-md);
+}
+
+.section-divider__desc {
+  color: var(--color-text-muted);
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* ── Conclusion ──────────────────────────────── */
+
+.conclusion {
+  padding: var(--space-2xl) var(--space-xl);
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.conclusion__title {
+  margin-bottom: var(--space-lg);
+}
+
+.conclusion__text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: var(--space-xl);
+}
+
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid var(--color-border-light);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  text-align: center;
+}
+
+.stat-card__number {
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: 1;
+  margin-bottom: var(--space-sm);
+}
+
+.stat-card__label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* ── Footer ──────────────────────────────────── */
+
+.footer {
+  text-align: center;
+  padding: var(--space-xl);
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  border-top: 1px solid var(--color-border-light);
+  margin-top: var(--space-xl);
+}
+
+/* ── Mobile floating card (hidden on desktop) ─ */
+
+.scrolly__mobile-card {
+  display: none;
+}
+
+/* ── Responsive ──────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .scrolly {
+    flex-direction: column;
+  }
+
+  .scrolly__narrative {
+    width: 100%;
+    order: 2;
+  }
+
+  .scrolly__chart-area {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    order: 1;
+    padding: var(--space-md) var(--space-md) var(--space-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: var(--space-xl);
+    z-index: 5;
+    overflow: hidden;
+  }
+
+  .scrolly__chart-container {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: 60vh;
+    position: relative;
+    overflow: visible;
+    padding-bottom: 44px; /* room for slider at bottom */
+  }
+
+  /* Hide individual step cards — they stay as invisible Scrollama triggers */
+  .step__card {
+    visibility: hidden;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    border: none;
+    box-shadow: none;
+  }
+
+  /* Section dividers also hidden on mobile (content shown in mobile card) */
+  .section-divider .section-divider__number,
+  .section-divider .section-divider__title,
+  .section-divider .section-divider__desc {
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Steps still need some min-height for Scrollama triggers */
+  .step {
+    min-height: 30vh;
+    padding: var(--space-xs);
+    justify-content: center;
+  }
+
+  .section-divider.step {
+    min-height: 20vh;
+    padding: var(--space-xs);
+  }
+
+  /* Show the floating card */
+  .scrolly__mobile-card {
+    display: block;
+    flex-shrink: 0;
+    padding: var(--space-xs) var(--space-sm);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+
+  .scrolly__mobile-card.mobile-card--visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-card__inner {
+    background: white;
+    border: 1px solid var(--color-border-light);
+    border-radius: 8px;
+    padding: var(--space-sm) var(--space-md);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+    max-height: 22vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-card__title {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: var(--space-xs);
+  }
+
+  .mobile-card__title:empty {
+    display: none;
+  }
+
+  .mobile-card__text {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .mobile-card__text:empty {
+    display: none;
+  }
+
+  /* Divider style variant */
+  .scrolly__mobile-card.mobile-card--divider .mobile-card__inner {
+    text-align: center;
+    background: var(--color-bg-alt);
+    border-color: transparent;
+  }
+
+  .mobile-card--divider .mobile-card__title {
+    color: var(--color-accent-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Fade-in animation */
+  .scrolly__mobile-card.mobile-card--animate .mobile-card__inner {
+    animation: mobileCardFadeIn 0.3s ease forwards;
+  }
+
+  @keyframes mobileCardFadeIn {
+    from { opacity: 0.3; transform: translateY(6px); }
+    to   { opacity: 1;   transform: translateY(0); }
+  }
+
+  :root {
+    --narrative-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: var(--space-lg) var(--space-md);
+    min-height: 85vh;
+  }
+
+  .hero__subtitle {
+    font-size: 1rem;
+  }
+
+  .scrolly__chart-container {
+    max-height: 54vh;
+    padding-bottom: 40px;
+    top: 25px;
+  }
+
+  .mobile-card__inner {
+    max-height: 18vh;
+    padding: var(--space-xs) var(--space-md);
+  }
+
+  .mobile-card__title {
+    font-size: 0.9rem;
+  }
+
+  .mobile-card__text {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .step {
+    min-height: 25vh;
+  }
+
+  .section-divider.step {
+    min-height: 15vh;
+  }
+
+  .section-divider {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .conclusion {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .conclusion__text {
+    font-size: 0.95rem;
+  }
+
+  .stat-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .stat-card {
+    padding: var(--space-md);
+  }
+
+  .stat-card__number {
+    font-size: 1.8rem;
+  }
+
+  .footer {
+    padding: var(--space-lg) var(--space-md);
+  }
+}
