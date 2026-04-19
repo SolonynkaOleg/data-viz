@@ -1,3 +1,5 @@
+const BASE = import.meta.env.BASE_URL;
+
 /* ──────────────────────────────────────────────
    Data loader — loads real CSVs from public/data/
    and merges them into the app's typed models.
@@ -98,10 +100,10 @@ const GED_COUNTRY_TO_ISO3: Record<string, string> = {
 
 export async function loadCountryYearData(): Promise<CountryYearRecord[]> {
   const [owidRaw, lifeRaw, vdemRaw, conflictRaw] = await Promise.all([
-    d3.csv('/data/owid.csv'),
-    d3.csv('/data/life-exp.csv'),
-    d3.csv('/data/vdem.csv'),
-    d3.csv('/data/ged-agg.csv'),
+    d3.csv(`${BASE}data/owid.csv`),
+    d3.csv(`${BASE}data/life-exp.csv`),
+    d3.csv(`${BASE}data/vdem.csv`),
+    d3.csv(`${BASE}data/ged-agg.csv`),
   ]);
 
   // ── Index life expectancy by iso3+year ──
@@ -190,7 +192,7 @@ export async function loadCountryYearData(): Promise<CountryYearRecord[]> {
    ═══════════════════════════════════════════════════ */
 
 export async function loadConflictEvents(): Promise<ConflictEvent[]> {
-  const raw = await d3.csv('/data/ged-agg.csv');
+  const raw = await d3.csv(`${BASE}data/ged-agg.csv`);
   const events: ConflictEvent[] = [];
   let id = 1;
 
@@ -220,7 +222,7 @@ export async function loadCountryMeta(): Promise<CountryMeta[]> {
 /** Load world TopoJSON for the map */
 export async function loadWorldTopology(): Promise<any> {
   try {
-    const resp = await fetch('/data/world-110m.json');
+    const resp = await fetch(`${BASE}data/world-110m.json`);
     if (resp.ok) return resp.json();
   } catch {
     // fall through
